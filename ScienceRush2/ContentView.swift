@@ -10,12 +10,32 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            Text("SCIENCE RUSH")
+                .fontWeight(.black)
+                .foregroundColor(Color(red: 0, green: 100, blue: 0, opacity: 1.0))
+                .padding(.bottom, 70)
+                .font(.title)
+    
+                
+            Button("PLAY"){
+            }
+            .buttonStyle(.borderedProminent)
+            .padding(200)
+            HStack{
+                Button("settings") {
+                    
+                }
+                .buttonBorderShape(.capsule)
+                .buttonStyle(.bordered)
+                Button("shop") {
+                    
+                }
+                .buttonBorderShape(.capsule)
+                .buttonStyle(.bordered)
+            }
         }
-        .padding()
+        .padding(.vertical)
+        .frame(width: 500, height: 800)
     }
 }
 
