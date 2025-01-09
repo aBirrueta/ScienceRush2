@@ -18,6 +18,7 @@ struct ContentView: View {
     
                 
             Button("PLAY"){
+                
             }
             .buttonStyle(.borderedProminent)
             .padding(200)
@@ -32,6 +33,9 @@ struct ContentView: View {
                 }
                 .buttonBorderShape(.capsule)
                 .buttonStyle(.bordered)
+                                
+                    
+                    
             }
         }
         .padding(.vertical)
