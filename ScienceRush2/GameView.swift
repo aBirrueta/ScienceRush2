@@ -15,9 +15,16 @@ struct GameView: View {
     
     let question = ["what is the power house of the cell"]
     let possibleAnswers = ["mitocondria"]
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    let playersAnswers = [""]
     
     var body: some View {
-        Image("sky background loop").navigationBarBackButtonHidden()    }
+        Image("sky background loop").navigationBarBackButtonHidden()
+            .onReceive(timer) {_ in 
+                print("hello")
+            }
+    }
+    
 }
 
 #Preview {
