@@ -50,7 +50,8 @@ struct GameView: View {
     var playersAnswers = [""]
     
     let timer = Timer.publish(every: 0.01, on: .main, in: .common).autoconnect()
-
+    
+    @State var counter = 1000
     func gradeAnswer() -> Bool { //function determines if question right or wrong
         if playerAnswer == correctAnswers[currentQuestion] {
             return true
@@ -62,6 +63,7 @@ struct GameView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack{
+                /*
                 Image("sky background loop").navigationBarBackButtonHidden()
                     .scaledToFill()
                     .offset(y: offsetY)
@@ -70,15 +72,47 @@ struct GameView: View {
                     .scaledToFill()
                     .offset(y: offsetY-2000)
                     .clipped()
+                 */
+                VStack{
+                    VStack{
+                        Text(question[currentQuestion])
+                        HStack{
+                            Button(answers[currentQuestion][0]) {
+                            }
+                            .buttonBorderShape(.capsule)
+                            .buttonStyle(.bordered)
+                            Button(answers[currentQuestion][1]) {
+                            }
+                            .buttonBorderShape(.capsule)
+                            .buttonStyle(.bordered)
+                            Button(answers[currentQuestion][2]) {
+                            }
+                            .buttonBorderShape(.capsule)
+                            .buttonStyle(.bordered)
+                            Button(answers[currentQuestion][3]) {
+                            }
+                            .buttonBorderShape(.capsule)
+                            .buttonStyle(.bordered)
+
+                        }
+                    }
+                }
             }
             .onReceive(timer) { _ in
+                if counter == 0 {
+                    print("show question")
+                }
                 offsetY += 2
                 if offsetY >= geometry.size.height {
                     offsetY = 0
                 }
+                if counter != -1 {
+                    counter -= 1
+                }
             }
         }
         .edgesIgnoringSafeArea(.all)
+        
 
     }
 }
