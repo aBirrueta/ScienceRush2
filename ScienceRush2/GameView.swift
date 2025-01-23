@@ -60,47 +60,53 @@ struct GameView: View {
             return false
         }
     } //closing gradeAnswer
+    
+    
     var body: some View {
         GeometryReader { geometry in
             ZStack{
-                /*
-                Image("sky background loop").navigationBarBackButtonHidden()
-                    .scaledToFill()
+                Image("sky background loop")
+                    .resizable()
                     .offset(y: offsetY)
                     .clipped()
+                    .aspectRatio(contentMode: .fill)
                 Image("sky background loop")
-                    .scaledToFill()
-                    .offset(y: offsetY-2000)
+                    .resizable()
+                    .offset(y: offsetY-geometry.size.height)
                     .clipped()
-                 */
+                    .aspectRatio(contentMode: .fill)
                 VStack{
-                    VStack{
-                        Text(question[currentQuestion])
-                        HStack{
-                            Button(answers[currentQuestion][0]) {
-                            }
-                            .buttonBorderShape(.capsule)
-                            .buttonStyle(.bordered)
-                            Button(answers[currentQuestion][1]) {
-                            }
-                            .buttonBorderShape(.capsule)
-                            .buttonStyle(.bordered)
-                            Button(answers[currentQuestion][2]) {
-                            }
-                            .buttonBorderShape(.capsule)
-                            .buttonStyle(.bordered)
-                            Button(answers[currentQuestion][3]) {
-                            }
-                            .buttonBorderShape(.capsule)
-                            .buttonStyle(.bordered)
-
+                    Text(question[currentQuestion])
+                    
+                    HStack{
+                        Button(answers[currentQuestion][0]) {
                         }
+                        .buttonBorderShape(.capsule)
+                        .buttonStyle(.bordered)
+                        Button(answers[currentQuestion][1]) {
+                        }
+                        .buttonBorderShape(.capsule)
+                        .buttonStyle(.bordered)
+                        Button(answers[currentQuestion][2]) {
+                        }
+                        .buttonBorderShape(.capsule)
+                        .buttonStyle(.bordered)
+                        Button(answers[currentQuestion][3]) {
+                        }
+                        .buttonBorderShape(.capsule)
+                        .buttonStyle(.bordered)
                     }
                 }
+                .opacity(1)
+                
+
             }
+            .offset(y: 0)
+            .navigationBarBackButtonHidden()
+        
             .onReceive(timer) { _ in
                 if counter == 0 {
-                    print("show question")
+                    currentQuestion += 1
                 }
                 offsetY += 2
                 if offsetY >= geometry.size.height {
@@ -115,6 +121,7 @@ struct GameView: View {
         
 
     }
+    
 }
 #Preview {
     GameView()
