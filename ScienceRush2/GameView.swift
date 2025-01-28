@@ -15,7 +15,9 @@ struct GameView: View {
     @State var currentLevel = 0
     @State var levelProgress = 0
     @State var currentQuestion = 0
-    @State var playerAnswer = ""
+    @State var questionShowing = 0.0
+    @State var trueShowing = 0.0
+    @State var falseShowing = 0.0
     let question = ["What is the basic unit of life?",
                     "What part of the cell controls its activities?",
                     "Which structure provides energy to the cell?",
@@ -52,8 +54,9 @@ struct GameView: View {
     let timer = Timer.publish(every: 0.01, on: .main, in: .common).autoconnect()
     
     @State var counter = 1000
-    func gradeAnswer() -> Bool { //function determines if question right or wrong
+    func gradeAnswer(playerAnswer: String) -> Bool { //function determines if question right or wrong
         if playerAnswer == correctAnswers[currentQuestion] {
+            
             return true
         }
         else {
@@ -76,28 +79,52 @@ struct GameView: View {
                     .clipped()
                     .aspectRatio(contentMode: .fill)
                 VStack{
+                    Text("INCORRECT")
+                        .foregroundColor(Color.red)
+                        .bold()
+                        .frame(width: 200.0, height: 200.0)
+                        .background(.black)
+                        .opacity(falseShowing)
+
+                    Text("CORRECT")
+                        .foregroundColor(Color.green)
+                        .bold()
+                        .frame(width: 200.0, height: 200.0)
+                        .background(.black)
+                        .opacity(trueShowing)
+                        
                     Text(question[currentQuestion])
                     
                     HStack{
                         Button(answers[currentQuestion][0]) {
-                        }
+                            if gradeAnswer(playerAnswer: answers[currentQuestion][0]){
+                                trueShowing = 1
+                            }
+                            else {
+                                falseShowing = 1
+                            }
+                            
+                            currentQuestion += 1                        }
                         .buttonBorderShape(.capsule)
-                        .buttonStyle(.bordered)
+                        .buttonStyle(.borderedProminent)
                         Button(answers[currentQuestion][1]) {
+                            currentQuestion += 1
                         }
                         .buttonBorderShape(.capsule)
-                        .buttonStyle(.bordered)
+                        .buttonStyle(.borderedProminent)
                         Button(answers[currentQuestion][2]) {
+                            currentQuestion += 1
                         }
                         .buttonBorderShape(.capsule)
-                        .buttonStyle(.bordered)
+                        .buttonStyle(.borderedProminent)
                         Button(answers[currentQuestion][3]) {
+                            currentQuestion += 1
                         }
                         .buttonBorderShape(.capsule)
-                        .buttonStyle(.bordered)
+                        .buttonStyle(.borderedProminent)
                     }
                 }
-                .opacity(1)
+                .opacity(questionShowing)
                 
 
             }
@@ -106,6 +133,7 @@ struct GameView: View {
         
             .onReceive(timer) { _ in
                 if counter == 0 {
+                    questionShowing = 1.0
                     currentQuestion += 1
                 }
                 offsetY += 2
