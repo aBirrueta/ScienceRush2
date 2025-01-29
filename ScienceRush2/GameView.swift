@@ -53,17 +53,24 @@ struct GameView: View {
     
     let timer = Timer.publish(every: 0.01, on: .main, in: .common).autoconnect()
     
-    @State var counter = 1000
-    func gradeAnswer(playerAnswer: String) -> Bool { //function determines if question right or wrong
+    @State var counter = 800
+    @State var twoSec = 0
+    
+    func gradeAnswer(playerAnswer: String) { //function determines if question right or wrong
         if playerAnswer == correctAnswers[currentQuestion] {
-            
-            return true
+            twoSec = 200
+            trueShowing = 1
         }
         else {
-            return false
+            twoSec = 200
+
+            falseShowing = 1
         }
     } //closing gradeAnswer
-    
+    func questionAnswered(playerAnswer: String) {
+        currentQuestion += 1
+        
+    }
     
     var body: some View {
         GeometryReader { geometry in
@@ -97,29 +104,24 @@ struct GameView: View {
                     
                     HStack{
                         Button(answers[currentQuestion][0]) {
-                            if gradeAnswer(playerAnswer: answers[currentQuestion][0]){
-                                trueShowing = 1
-                            }
-                            else {
-                                falseShowing = 1
-                            }
+                            gradeAnswer(playerAnswer: answers[currentQuestion][0])
                             
                             currentQuestion += 1                        }
                         .buttonBorderShape(.capsule)
                         .buttonStyle(.borderedProminent)
                         Button(answers[currentQuestion][1]) {
-                            currentQuestion += 1
-                        }
+                            gradeAnswer(playerAnswer: answers[currentQuestion][1])
+                            currentQuestion += 1                          }
                         .buttonBorderShape(.capsule)
                         .buttonStyle(.borderedProminent)
                         Button(answers[currentQuestion][2]) {
-                            currentQuestion += 1
-                        }
+                            gradeAnswer(playerAnswer: answers[currentQuestion][2])
+                            currentQuestion += 1                          }
                         .buttonBorderShape(.capsule)
                         .buttonStyle(.borderedProminent)
                         Button(answers[currentQuestion][3]) {
-                            currentQuestion += 1
-                        }
+                            gradeAnswer(playerAnswer: answers[currentQuestion][3])
+                            currentQuestion += 1                          }
                         .buttonBorderShape(.capsule)
                         .buttonStyle(.borderedProminent)
                     }
@@ -134,14 +136,20 @@ struct GameView: View {
             .onReceive(timer) { _ in
                 if counter == 0 {
                     questionShowing = 1.0
-                    currentQuestion += 1
+                }
+                if twoSec == 0 {
+                    falseShowing = 0
+                    trueShowing = 0
                 }
                 offsetY += 2
                 if offsetY >= geometry.size.height {
                     offsetY = 0
                 }
-                if counter != -1 {
+                if counter != 0 {
                     counter -= 1
+                }
+                if twoSec != 0 {
+                    twoSec -= 1
                 }
             }
         }
