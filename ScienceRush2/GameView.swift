@@ -60,11 +60,13 @@ struct GameView: View {
         if playerAnswer == correctAnswers[currentQuestion] {
             twoSec = 200
             trueShowing = 1
+            questionShowing = 0.0
         }
         else {
             twoSec = 200
-
+            
             falseShowing = 1
+            questionShowing = 0.0
         }
     } //closing gradeAnswer
     func questionAnswered(playerAnswer: String) {
@@ -85,6 +87,12 @@ struct GameView: View {
                     .offset(y: offsetY-geometry.size.height)
                     .clipped()
                     .aspectRatio(contentMode: .fill)
+                
+                Text(question[currentQuestion]+"?")
+                    .position(x: 200, y: 100)
+                    .fontWeight(.black)
+                    .opacity(questionShowing)
+                
                 VStack{
                     Text("INCORRECT")
                         .foregroundColor(Color.red)
@@ -100,8 +108,6 @@ struct GameView: View {
                         .background(.black)
                         .opacity(trueShowing)
                         
-                    Text(question[currentQuestion])
-                    
                     HStack{
                         Button(answers[currentQuestion][0]) {
                             gradeAnswer(playerAnswer: answers[currentQuestion][0])
@@ -125,8 +131,10 @@ struct GameView: View {
                         .buttonBorderShape(.capsule)
                         .buttonStyle(.borderedProminent)
                     }
+                    .opacity(questionShowing)
+                    .offset(y: offsetY-geometry.size.height)
                 }
-                .opacity(questionShowing)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
                 
 
             }
@@ -140,13 +148,17 @@ struct GameView: View {
                 if twoSec == 0 {
                     falseShowing = 0
                     trueShowing = 0
+                    questionShowing = 1.0
                 }
                 offsetY += 2
                 if offsetY >= geometry.size.height {
                     offsetY = 0
+                    currentQuestion += 1
                 }
-                if counter != 0 {
-                    counter -= 1
+                if twoSec == 1 {
+                    if counter != 0 {
+                        counter -= 1
+                    }
                 }
                 if twoSec != 0 {
                     twoSec -= 1
