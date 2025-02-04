@@ -61,7 +61,9 @@ struct GameView: View {
                 
                  
     let correctAnswers = ["Cell","Nucleus","Mitochondria","Cell membrane","Chloroplast","Cytoplasm","Ribosome","Golgi apparatus","Cell wall","To store water and nutrients","To break down waste materials","Smooth Endoplasmic Reticulum","To provide structure and support","Prokaryotic and Eukaryotic","To control what enters and exits the cell"]
-    var playersAnswers = [""]
+    
+    @State var playersAnswers: [String] = []
+    @State var playersGradedAnswers: [Int] = []
     
     let timer = Timer.publish(every: 0.01, on: .main, in: .common).autoconnect()
     
@@ -69,22 +71,28 @@ struct GameView: View {
     @State var twoSec = 0
     
     func gradeAnswer(playerAnswer: String) { //function determines if question right or wrong
+        playersAnswers.append(playerAnswer)
         if playerAnswer == correctAnswers[currentQuestion] {
             twoSec = 100
             trueShowing = 1
             questionShowing = 0.0
+            playersGradedAnswers.append(1)
         }
         else {
             twoSec = 100
             
             falseShowing = 1
             questionShowing = 0.0
+            playersGradedAnswers.append(0)
+
         }
-        if question[currentLevel].count - 1 != currentQuestion {
+        if answers[currentLevel].count - 1 != currentQuestion {
             currentQuestion += 1
-            print(question[currentLevel].count)
-            print(currentQuestion)
         }
+        else {
+            EndGameView()
+        }
+        
         answersOffSetY = -200
     } //closing gradeAnswer
         
@@ -170,6 +178,7 @@ struct GameView: View {
                     skyOffSetY = 0
                 }
                 //scrolling for answers
+                
                 answersOffSetY += 2
                 if answersOffSetY >= 1200 {
                     answersOffSetY = 0
