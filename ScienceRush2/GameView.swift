@@ -69,7 +69,7 @@ struct GameView: View {
     
     @State var counter = 800
     @State var twoSec = 0
-    
+    @State var gameEndedShowing: Double = 0.0
     func gradeAnswer(playerAnswer: String) { //function determines if question right or wrong
         playersAnswers.append(playerAnswer)
         if playerAnswer == correctAnswers[currentQuestion] {
@@ -90,7 +90,8 @@ struct GameView: View {
             currentQuestion += 1
         }
         else {
-            EndGameView()
+            gameEndedShowing = 1.0
+            questionShowing = 0.0
         }
         
         answersOffSetY = -200
@@ -98,6 +99,7 @@ struct GameView: View {
         
     var body: some View {
         GeometryReader { geometry in
+            
             ZStack{
                 Image("sky background loop")
                     .resizable()
@@ -114,7 +116,6 @@ struct GameView: View {
                     .position(x: 200, y: 100)
                     .fontWeight(.black)
                     .opacity(questionShowing)
-                
                 VStack{
                     Text("INCORRECT")
                         .foregroundColor(Color.red)
@@ -129,7 +130,8 @@ struct GameView: View {
                         .frame(width: 200.0, height: 200.0)
                         .background(.black)
                         .opacity(trueShowing)
-                        
+                    EndGameView()
+                        .opacity(gameEndedShowing)
                     HStack{
                         Button(answers[currentLevel][currentQuestion][0]) {
                             gradeAnswer(playerAnswer: answers[currentLevel][currentQuestion][0])
@@ -156,8 +158,6 @@ struct GameView: View {
                     .offset(y: answersOffSetY-geometry.size.height)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                
-
             }
             .offset(y: 0)
             .navigationBarBackButtonHidden()
@@ -196,6 +196,7 @@ struct GameView: View {
                     twoSec -= 1
                 }
             }
+            
         }
         .edgesIgnoringSafeArea(.all)
         

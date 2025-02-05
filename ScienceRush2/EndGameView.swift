@@ -9,7 +9,13 @@ import SwiftUI
 
 struct EndGameView: View {
     var body: some View {
-        Text("score:")
+        ZStack{
+            RoundedRectangle(cornerRadius: 15)
+                .fill(.white)
+                .frame(width: 300, height: 500)
+            Text("score:")
+        }
+
     }
 }
 
