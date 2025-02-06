@@ -9,7 +9,6 @@ import SwiftUI
 
 struct GameView: View {
     
-    @State private var skyOffSetY: CGFloat = 0.0
     @State private var answersOffSetY: CGFloat = 0.0
     @Environment(\.dismiss) var dismiss
     @State var questionsAnswered = 0
@@ -19,6 +18,8 @@ struct GameView: View {
     @State var questionShowing = 0.0
     @State var trueShowing = 0.0
     @State var falseShowing = 0.0
+    @State var gameRunning = true
+    @State private var skyOffSetY: CGFloat = 0.0
     let question =
                 [
                     ["What is the basic unit of life?",
@@ -101,21 +102,13 @@ struct GameView: View {
         GeometryReader { geometry in
             
             ZStack{
-                Image("sky background loop")
-                    .resizable()
-                    .offset(y: skyOffSetY)
-                    .clipped()
-                    .aspectRatio(contentMode: .fill)
-                Image("sky background loop")
-                    .resizable()
-                    .offset(y: skyOffSetY-geometry.size.height)
-                    .clipped()
-                    .aspectRatio(contentMode: .fill)
-                
+                BackgroundView(skyOffSetY: $skyOffSetY)
                 Text(question[currentLevel][currentQuestion]+"?")
                     .position(x: 200, y: 100)
                     .fontWeight(.black)
                     .opacity(questionShowing)
+                EndGameView()
+                    .opacity(gameEndedShowing)
                 VStack{
                     Text("INCORRECT")
                         .foregroundColor(Color.red)
@@ -130,8 +123,6 @@ struct GameView: View {
                         .frame(width: 200.0, height: 200.0)
                         .background(.black)
                         .opacity(trueShowing)
-                    EndGameView()
-                        .opacity(gameEndedShowing)
                     HStack{
                         Button(answers[currentLevel][currentQuestion][0]) {
                             gradeAnswer(playerAnswer: answers[currentLevel][currentQuestion][0])
@@ -163,6 +154,11 @@ struct GameView: View {
             .navigationBarBackButtonHidden()
         
             .onReceive(timer) { _ in
+                skyOffSetY += 2
+                if skyOffSetY >= 874.0 {
+                    skyOffSetY = 0
+                }
+
                 //counters action
                 if counter == 0 {
                     questionShowing = 1.0
@@ -171,11 +167,6 @@ struct GameView: View {
                     falseShowing = 0
                     trueShowing = 0
                     questionShowing = 1.0
-                }
-                //scrolling for sky
-                skyOffSetY += 2
-                if skyOffSetY >= 874.0 {
-                    skyOffSetY = 0
                 }
                 //scrolling for answers
                 
