@@ -20,6 +20,7 @@ struct GameView: View {
     @State var falseShowing = 0.0
     @State var gameRunning = true
     @State private var skyOffSetY: CGFloat = 0.0
+    @State var playersAnswer : String
     let question =
                 [
                     ["What is the basic unit of life?",
@@ -71,6 +72,9 @@ struct GameView: View {
     @State var counter = 800
     @State var twoSec = 0
     @State var gameEndedShowing: Double = 0.0
+    
+    
+    
     func gradeAnswer(playerAnswer: String) { //function determines if question right or wrong
         playersAnswers.append(playerAnswer)
         if playerAnswer == correctAnswers[currentQuestion] {
@@ -98,11 +102,16 @@ struct GameView: View {
         answersOffSetY = -200
     } //closing gradeAnswer
         
+    
+    
     var body: some View {
         GeometryReader { geometry in
             
             ZStack{
                 BackgroundView(skyOffSetY: $skyOffSetY)
+                
+                
+                // Question view v
                 Text(question[currentLevel][currentQuestion]+"?")
                     .position(x: 200, y: 100)
                     .fontWeight(.black)
@@ -116,7 +125,7 @@ struct GameView: View {
                         .frame(width: 200.0, height: 200.0)
                         .background(.black)
                         .opacity(falseShowing)
-
+                        
                     Text("CORRECT")
                         .foregroundColor(Color.green)
                         .bold()
@@ -125,7 +134,10 @@ struct GameView: View {
                         .opacity(trueShowing)
                     HStack{
                         Button(answers[currentLevel][currentQuestion][0]) {
-                            gradeAnswer(playerAnswer: answers[currentLevel][currentQuestion][0])
+                            
+                            //GradeAnswerView(playerAnswer: $playerAnswer: )
+                            playersAnswer = answers[currentLevel][currentQuestion][0]
+                            GradeAnswerView(playerAnswer: $playersAnswer, currentQuestion: $currentQuestion)
                         }
                         .buttonBorderShape(.capsule)
                         .buttonStyle(.borderedProminent)
@@ -144,15 +156,20 @@ struct GameView: View {
                         }
                         .buttonBorderShape(.capsule)
                         .buttonStyle(.borderedProminent)
-                    }
+                    }//hstack
                     .opacity(questionShowing)
                     .offset(y: answersOffSetY-geometry.size.height)
-                }
+                }//vstack
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-            }
+                //question view ^
+                
+                
+                
+            }//Zstack
             .offset(y: 0)
             .navigationBarBackButtonHidden()
-        
+            
+            //loop
             .onReceive(timer) { _ in
                 skyOffSetY += 2
                 if skyOffSetY >= 874.0 {
