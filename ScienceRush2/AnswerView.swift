@@ -5,17 +5,17 @@
 //  Created by Alejandro Birrueta on 2/11/25.
 //
 
+ 
 import SwiftUI
 
 struct AnswerView: View {
-    @State var questionsAnswered = 0
-    @State var currentLevel = 0
-    @State var levelProgress = 0
-    @State var currentQuestion = 0
-    @State var questionShowing = 0.0
-    @State var trueShowing = 0.0
-    @State var falseShowing = 0.0
-    @State var gameRunning = true
+    //@State var questionsAnswered = 0
+    //@Binding var currentLevel = 0
+    //@Binding var currentQuestion = 0
+    //@State var questionShowing = 0.0
+    //@State var trueShowing = 0.0
+    //@State var falseShowing = 0.0
+    //@State var gameRunning = true
     
     let answers =
             [
