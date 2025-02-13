@@ -15,19 +15,17 @@ struct GameView: View {
     @State var currentLevel = 0 //used in Answer View, Question View
     @State var currentQuestion = 0 //used in Answer View, Question View
     @State var questionShowing = 0.0
-    @State var trueShowing = 0.0
-    @State var falseShowing = 0.0
+    //@State var trueShowing = 0.0 //used in gradeAnswer
+    //@State var falseShowing = 0.0 //used in gradeAnswer
     @State var gameRunning = true
     @State private var skyOffSetY: CGFloat = 0.0
-    
-    //@State var playerAnswer : String
-    @State var playersAnswers: [String] = []
-    @State var playersGradedAnswers: [Int] = []
+    //@State var playersAnswers: [String] = []
+    //@State var playersGradedAnswers: [Int] = []
     
     let timer = Timer.publish(every: 0.01, on: .main, in: .common).autoconnect()
     
     @State var counter = 800
-    @State var twoSec = 0
+    //@State var twoSec = 0
     @State var gameEndedShowing: Double = 0.0
     
     var body: some View {
@@ -37,6 +35,9 @@ struct GameView: View {
                 BackgroundView(skyOffSetY: $skyOffSetY)
                 QuestionView(currentLevel: $currentLevel, currentQuestion: $currentQuestion)
                     .opacity(questionShowing)
+                AnswerView(currentLevel: $currentLevel, currentQuestion: $currentQuestion)
+                    .opacity(questionShowing)
+                    .offset(y: answersOffSetY-geometry.size.height)
                 EndGameView()
                     .opacity(gameEndedShowing)
                 /*
@@ -102,7 +103,7 @@ struct GameView: View {
                 if counter == 0 {
                     questionShowing = 1.0
                 }
-                if twoSec == 0 {
+                if twoSec == 0 {//twosec was changes to counterForResults in GradeAnswerView
                     falseShowing = 0
                     trueShowing = 0
                     questionShowing = 1.0

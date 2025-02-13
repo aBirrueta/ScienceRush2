@@ -9,13 +9,9 @@
 import SwiftUI
 
 struct AnswerView: View {
-    //@State var questionsAnswered = 0
-    //@Binding var currentLevel = 0
-    //@Binding var currentQuestion = 0
-    //@State var questionShowing = 0.0
-    //@State var trueShowing = 0.0
-    //@State var falseShowing = 0.0
-    //@State var gameRunning = true
+    @Binding var currentLevel : Int
+    @Binding var currentQuestion : Int
+    @State var playerAnswer = ""
     
     let answers =
             [
@@ -38,48 +34,40 @@ struct AnswerView: View {
                 ]
             ]
     var body: some View {
-        VStack{
-            Text("INCORRECT")
-                .foregroundColor(Color.red)
-                .bold()
-                .frame(width: 200.0, height: 200.0)
-                .background(.black)
-                .opacity(falseShowing)
-                
-            Text("CORRECT")
-                .foregroundColor(Color.green)
-                .bold()
-                .frame(width: 200.0, height: 200.0)
-                .background(.black)
-                .opacity(trueShowing)
+
             HStack{
                 Button(answers[currentLevel][currentQuestion][0]) {
-                    gradeAnswer(playerAnswer: answers[currentLevel][currentQuestion][0])
+                    playerAnswer = answers[currentLevel][currentQuestion][0]
+                    GradeAnswerView(playerAnswer: $playerAnswer)
                 }
                 .buttonBorderShape(.capsule)
                 .buttonStyle(.borderedProminent)
                 Button(answers[currentLevel][currentQuestion][1]) {
-                    gradeAnswer(playerAnswer: answers[currentLevel][currentQuestion][1])
+                    playerAnswer = answers[currentLevel][currentQuestion][1]
+                    //GradeAnswerView(playerAnswer)
                  }
                 .buttonBorderShape(.capsule)
                 .buttonStyle(.borderedProminent)
                 Button(answers[currentLevel][currentQuestion][2]) {
-                    gradeAnswer(playerAnswer: answers[currentLevel][currentQuestion][2])
+                    playerAnswer = answers[currentLevel][currentQuestion][2]
+                    //GradeAnswerView(playerAnswer)
+
                 }
                 .buttonBorderShape(.capsule)
                 .buttonStyle(.borderedProminent)
                 Button(answers[currentLevel][currentQuestion][3]) {
-                    gradeAnswer(playerAnswer: answers[currentLevel][currentQuestion][3])
+                    playerAnswer = answers[currentLevel][currentQuestion][3]
+                    //GradeAnswerView(playerAnswer)
                 }
                 .buttonBorderShape(.capsule)
                 .buttonStyle(.borderedProminent)
             }//hstack
-            .opacity(questionShowing)
-            .offset(y: answersOffSetY-geometry.size.height)
-        }//vstack
-        .frame(maxWidth: .infinity, maxHeight: .infinity)    }    }
+            //.opacity(questionShowing)
+            //.offset(y: answersOffSetY-geometry.size.height)
+    }
 }
 
+/*
 #Preview {
     AnswerView()
-}
+ }*/
