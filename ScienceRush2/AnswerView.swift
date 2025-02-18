@@ -11,7 +11,7 @@ import SwiftUI
 struct AnswerView: View {
     @Binding var currentLevel : Int
     @Binding var currentQuestion : Int
-    @State var playerAnswer = ""
+    @Binding var playerAnswer : String
     
     let answers =
             [
@@ -34,36 +34,39 @@ struct AnswerView: View {
                 ]
             ]
     var body: some View {
-
+        ZStack{
             HStack{
                 Button(answers[currentLevel][currentQuestion][0]) {
                     playerAnswer = answers[currentLevel][currentQuestion][0]
-                    GradeAnswerView(playerAnswer: $playerAnswer)
+                    //GradeAnswerView(playerAnswer: $playerAnswer, currentLevel: $currentLevel, currentQuestion: $currentQuestion)
                 }
                 .buttonBorderShape(.capsule)
                 .buttonStyle(.borderedProminent)
                 Button(answers[currentLevel][currentQuestion][1]) {
                     playerAnswer = answers[currentLevel][currentQuestion][1]
-                    //GradeAnswerView(playerAnswer)
-                 }
+                    //GradeAnswerView(playerAnswer: $playerAnswer, currentLevel: $currentLevel, currentQuestion: $currentQuestion)
+                }
                 .buttonBorderShape(.capsule)
                 .buttonStyle(.borderedProminent)
                 Button(answers[currentLevel][currentQuestion][2]) {
                     playerAnswer = answers[currentLevel][currentQuestion][2]
-                    //GradeAnswerView(playerAnswer)
-
+                    //GradeAnswerView(playerAnswer: $playerAnswer, currentLevel: $currentLevel, currentQuestion: $currentQuestion)
+                    
                 }
                 .buttonBorderShape(.capsule)
                 .buttonStyle(.borderedProminent)
                 Button(answers[currentLevel][currentQuestion][3]) {
                     playerAnswer = answers[currentLevel][currentQuestion][3]
-                    //GradeAnswerView(playerAnswer)
+                    //GradeAnswerView(playerAnswer: $playerAnswer, currentLevel: $currentLevel, currentQuestion: $currentQuestion)
                 }
                 .buttonBorderShape(.capsule)
                 .buttonStyle(.borderedProminent)
             }//hstack
             //.opacity(questionShowing)
             //.offset(y: answersOffSetY-geometry.size.height)
+        }
+       
+
     }
 }
 

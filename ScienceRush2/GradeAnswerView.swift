@@ -15,20 +15,13 @@ struct GradeAnswerView: View {
     @State var playersAnswers: [String] = []
     @State var playersGradedAnswers: [Int] = []
     // counter
-    @State var counterForResults = 0
+    @State var counterForResults : Int = 0
     //
-    @State var trueShowing = 0.0
-    @State var falseShowing = 0.0
+    @State var trueShowing : Double = 0.0
+    @State var falseShowing : Double = 0.0
     
-    /*
-    @Binding var playerAnswer: String
-    @Binding var currentQuestion: Int
-    @Binding var currentLevel: Int
-    @Binding var trueShowing: Int
-    @Binding var questionShowing: Double
-    @Binding var playersGradedAnswers: [Int]
-    @Binding var falseShowing: Double
-     */
+    let resultTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    
     let correctAnswers =
     [
         ["Cell","Nucleus","Mitochondria","Cell membrane","Chloroplast","Cytoplasm","Ribosome","Golgi apparatus","Cell wall","To store water and nutrients","To break down waste materials","Smooth Endoplasmic Reticulum","To provide structure and support","Prokaryotic and Eukaryotic","To control what enters and exits the cell"]
@@ -40,41 +33,57 @@ struct GradeAnswerView: View {
            .bold()
            .frame(width: 200.0, height: 200.0)
            .background(.black)
-           //.opacity(falseShowing)
+           .opacity(falseShowing)
            
        Text("CORRECT")
            .foregroundColor(Color.green)
            .bold()
            .frame(width: 200.0, height: 200.0)
            .background(.black)
-           //.opacity(trueShowing)
+           .opacity(trueShowing)
         
-        playersAnswers.append(playerAnswer)
-        if playerAnswer == correctAnswers[currentLevel][currentQuestion] {
-            counterForResults = 100
-            trueShowing = 1
-            //questionShowing = 0.0
-            playersGradedAnswers.append(1)
-        }
-        else {
-            counterForResults = 100
-            
-            falseShowing = 1
-            //questionShowing = 0.0
-            playersGradedAnswers.append(0)
-            
-        }
-        if correctAnswers[currentLevel].count - 1 != currentQuestion {
-            currentQuestion += 1
-        }
-        else {
-            EndGameView()
-            //questionShowing = 0.0
-        }
-        
-        //answersOffSetY = -200
-   
+           .onReceive(resultTimer) { _ in
+               if playerAnswer == correctAnswers[currentLevel][currentQuestion] {
+                   counterForResults = 1
+                   trueShowing = 1.0
+                   //questionShowing = 0.0
+                   playersGradedAnswers.append(1)
+               }
+               else {
+                   counterForResults = 1
+                   falseShowing = 1.0
+                   //questionShowing = 0.0
+                   playersGradedAnswers.append(0)
+                   
+               }
+               if correctAnswers[currentLevel].count - 1 != currentQuestion {
+                   currentQuestion += 1
+               }
+               else {
+                   EndGameView()
+                   //questionShowing = 0.0
+               }
+               
+               if counterForResults == 0 {//twosec was changes to counterForResults in GradeAnswerView
+                   falseShowing = 0.0
+                   trueShowing = 0.0
+                   //questionShowing = 1.0
+               }
+               // if counterForResults == 1 {
+               // if counter != 0 {
+               //   counter -= 1
+               //}
+               // }
+               if counterForResults != 0 {
+                   counterForResults -= 1
+               }
+               //answersOffSetY = -200
+           }
+
     }
+    //playersAnswers.append(playerAnswer)
+
+    
 }
 
 

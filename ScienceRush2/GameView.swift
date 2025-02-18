@@ -15,12 +15,10 @@ struct GameView: View {
     @State var currentLevel = 0 //used in Answer View, Question View
     @State var currentQuestion = 0 //used in Answer View, Question View
     @State var questionShowing = 0.0
-    //@State var trueShowing = 0.0 //used in gradeAnswer
-    //@State var falseShowing = 0.0 //used in gradeAnswer
     @State var gameRunning = true
     @State private var skyOffSetY: CGFloat = 0.0
-    //@State var playersAnswers: [String] = []
-    //@State var playersGradedAnswers: [Int] = []
+    @State var playerAnswer = ""
+
     
     let timer = Timer.publish(every: 0.01, on: .main, in: .common).autoconnect()
     
@@ -35,11 +33,12 @@ struct GameView: View {
                 BackgroundView(skyOffSetY: $skyOffSetY)
                 QuestionView(currentLevel: $currentLevel, currentQuestion: $currentQuestion)
                     .opacity(questionShowing)
-                AnswerView(currentLevel: $currentLevel, currentQuestion: $currentQuestion)
+                AnswerView(currentLevel: $currentLevel, currentQuestion: $currentQuestion, playerAnswer: $playerAnswer)
                     .opacity(questionShowing)
                     .offset(y: answersOffSetY-geometry.size.height)
                 EndGameView()
                     .opacity(gameEndedShowing)
+                GradeAnswerView(playerAnswer: $playerAnswer, currentLevel: $currentLevel, currentQuestion: $currentQuestion)
                 /*
                 VStack{
                     Text("INCORRECT")
@@ -95,19 +94,21 @@ struct GameView: View {
             //loop
             .onReceive(timer) { _ in
                 skyOffSetY += 2
-                if skyOffSetY >= 874.0 {
-                    skyOffSetY = 0
-                }
+                if skyOffSetY >= 874.0 { skyOffSetY = 0 }
 
                 //counters action
-                if counter == 0 {
-                    questionShowing = 1.0
+                if counter == 0 { questionShowing = 1.0 }
+                if counter != 0 {
+                    counter -= 1
                 }
-                if twoSec == 0 {//twosec was changes to counterForResults in GradeAnswerView
+
+                /*
+                if GradeAnswerView == 0 {//twosec was changes to counterForResults in GradeAnswerView
                     falseShowing = 0
                     trueShowing = 0
                     questionShowing = 1.0
                 }
+                 */
                 //scrolling for answers
                 
                 answersOffSetY += 2
@@ -116,7 +117,7 @@ struct GameView: View {
 
                 }
                     
-                
+                /*
                 //counters
                 if twoSec == 1 {
                     if counter != 0 {
@@ -126,6 +127,7 @@ struct GameView: View {
                 if twoSec != 0 {
                     twoSec -= 1
                 }
+                */
             }
             
         }
