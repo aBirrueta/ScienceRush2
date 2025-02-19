@@ -12,7 +12,6 @@ struct AnswerView: View {
     @Binding var currentLevel : Int
     @Binding var currentQuestion : Int
     @Binding var playerAnswer : String
-    
     let answers =
             [
                 [
@@ -38,7 +37,6 @@ struct AnswerView: View {
             HStack{
                 Button(answers[currentLevel][currentQuestion][0]) {
                     playerAnswer = answers[currentLevel][currentQuestion][0]
-                    //GradeAnswerView(playerAnswer: $playerAnswer, currentLevel: $currentLevel, currentQuestion: $currentQuestion)
                 }
                 .buttonBorderShape(.capsule)
                 .buttonStyle(.borderedProminent)
@@ -62,7 +60,6 @@ struct AnswerView: View {
                 .buttonBorderShape(.capsule)
                 .buttonStyle(.borderedProminent)
             }//hstack
-            //.opacity(questionShowing)
             //.offset(y: answersOffSetY-geometry.size.height)
         }
        
