@@ -12,7 +12,7 @@ struct GameView: View {
     @State private var answersOffSetY: Double = 0.0
     @Environment(\.dismiss) var dismiss
     @State var questionsAnswered = 0
-    @State var currentLevel = 0 //used in Answer View, Question View
+    @State var currentLevel = 0 //used in Answer View, Question View, EndGameView
     @State var currentQuestion = 0 //used in Answer View, Question View
     @State var questionShowing = 1.0
     @State var gameRunning = true// true while playing game,false when not
@@ -40,9 +40,9 @@ struct GameView: View {
                 AnswerView(currentLevel: $currentLevel, currentQuestion: $currentQuestion, playerAnswer: $playerAnswer)
                     .opacity(questionShowing)
                     .offset(y: answersOffSetY-geometry.size.height)
-                EndGameView()
-                    .opacity(gameEndedShowing)
                 GradeAnswerView(trueShowing: $trueShowing, falseShowing: $falseShowing, counterForResults: $counterForResults, questionShowing: $questionShowing, currentQuestion: $currentQuestion, currentLevel: $currentLevel, playerAnswer: $playerAnswer, answersOffSetY: $answersOffSetY, gameEndedShowing: $gameEndedShowing, gameRunning: $gameRunning, counter: $counter)
+                EndGameView(currentLevel: $currentLevel)
+                    .opacity(1)
             }//Zstack
             
             .offset(y: 0)
@@ -51,41 +51,42 @@ struct GameView: View {
         }
         .edgesIgnoringSafeArea(.all)
             //loop
-            if gameRunning{
-                HStack{}
-                .onReceive(timer) { _ in
-                    skyOffSetY += 2
-                    if skyOffSetY >= 874.0 { skyOffSetY = 0 }
-                    
-                    
-                    if counterForResults == 0 {
-                        falseShowing = 0.0
-                        trueShowing = 0.0
-                        questionShowing = 1.0
-                    }
-                    //counters action
-                    if counter == 0 {
-                        questionShowing = 1.0
-                    }
-                    if counterForResults == 0 {
-                        falseShowing = 0
-                        trueShowing = 0
-                    }
-                    if counter != 0 {
-                        counter -= 1
-                    }
-                    if counterForResults != 0 {
-                        counterForResults -= 1
-                    }
-                    //scrolling for answers
-                    answersOffSetY += 2
-                    if answersOffSetY >= 1500 {
-                        answersOffSetY = 0
-                    }
-                    
+            .onReceive(timer) { _ in
+                if gameRunning{ skyOffSetY += 2}
+                if gameRunning && skyOffSetY >= 874.0 { skyOffSetY = 0 }
+                
+                
+                if counterForResults == 0 {
+                    falseShowing = 0.0
+                    trueShowing = 0.0
+                }
+                //counters action
+                if counter == 0 {
+                    questionShowing = 1.0
+                }
+                if counterForResults == 0 {
+                    falseShowing = 0
+                    trueShowing = 0
+                }
+                if gameRunning && counter != 0 {
+                    counter -= 1
+                }
+                if counterForResults != 0 {
+                    counterForResults -= 1
+                }
+                //scrolling for answers
+                answersOffSetY += 2
+                if answersOffSetY >= 1500 {
+                    answersOffSetY = 0
+                }
+                if gameRunning == false && counterForResults == 0 {
+                    gameEndedShowing = 1.0
                     
                 }
+                
+                
             }
+        
             
 
         

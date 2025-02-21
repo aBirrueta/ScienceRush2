@@ -45,12 +45,7 @@ struct GradeAnswerView: View {
         }
         else {
             gameRunning = false
-            gameEndedShowing = 1.0
             questionShowing = 0.0
-            falseShowing = 0.0
-            trueShowing = 0.0
-            print(playersGradedAnswers)
-            
         }
     }
     var body: some View {
