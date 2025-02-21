@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BackgroundView: View {
-    @Binding var skyOffSetY : CGFloat
+    @Binding var skyOffSetY : Double
         var body: some View {
         
         GeometryReader { geometry in
