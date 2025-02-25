@@ -21,9 +21,8 @@ struct GameView: View {
     @State var trueShowing : Double = 0.0
     @State var falseShowing : Double = 0.0
     @State var playersAnswers: [String] = []
-    @State var playersGradedAnswers: [Int] = []
+    @State var playersGradedAnswers : [Bool] = []
     @State var resultShowing = 0.0
-    
     let timer = Timer.publish(every: 0.01, on: .main, in: .common).autoconnect()
     
     @State var counter = 100//for questions showing
@@ -40,9 +39,9 @@ struct GameView: View {
                 AnswerView(currentLevel: $currentLevel, currentQuestion: $currentQuestion, playerAnswer: $playerAnswer)
                     .opacity(questionShowing)
                     .offset(y: answersOffSetY-geometry.size.height)
-                GradeAnswerView(trueShowing: $trueShowing, falseShowing: $falseShowing, counterForResults: $counterForResults, questionShowing: $questionShowing, currentQuestion: $currentQuestion, currentLevel: $currentLevel, playerAnswer: $playerAnswer, answersOffSetY: $answersOffSetY, gameEndedShowing: $gameEndedShowing, gameRunning: $gameRunning, counter: $counter)
-                EndGameView(currentLevel: $currentLevel)
-                    .opacity(1)
+                GradeAnswerView(trueShowing: $trueShowing, falseShowing: $falseShowing, counterForResults: $counterForResults, questionShowing: $questionShowing, currentQuestion: $currentQuestion, currentLevel: $currentLevel, playerAnswer: $playerAnswer, answersOffSetY: $answersOffSetY, gameEndedShowing: $gameEndedShowing, gameRunning: $gameRunning, counter: $counter, playersGradedAnswers: $playersGradedAnswers)
+                EndGameView(currentLevel: $currentLevel, playersGradedAnswers: $playersGradedAnswers)
+                    .opacity(gameEndedShowing)
             }//Zstack
             
             .offset(y: 0)
