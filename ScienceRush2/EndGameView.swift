@@ -10,7 +10,27 @@ import SwiftUI
 struct EndGameView: View {
     
     @Binding var currentLevel: Int
+    @Binding var currentQuestion: Int
     @Binding var playersGradedAnswers: [Bool]
+    @Binding var storedAnswers : [String]
+    let question =
+    [
+        ["What is the basic unit of life?",
+         "What part of the cell controls its activities?",
+         "Which structure provides energy to the cell?",
+         "What surrounds and protects animal cells?",
+         "Which organelle is responsible for photosynthesis in plant cells?",
+         "What is the jelly-like substance inside a cell called?",
+         "Which organelle is known as the 'protein factory' of the cell?",
+         "Which cell organelle packages and distributes proteins?",
+         "What do plant cells have that animal cells do not?",
+         "What is the function of the vacuole in plant cells?",
+         "What is the role of the lysosome in the cell?",
+         "Which part of the cell is responsible for making lipids?",
+         "What is the main purpose of the cytoskeleton in a cell?",
+         "What are the two main types of cells?",
+         "What is the function of the cell membrane?"]
+    ]
     let correctAnswers =
     [
         ["Cell","Nucleus","Mitochondria","Cell membrane","Chloroplast","Cytoplasm","Ribosome","Golgi apparatus","Cell wall","To store water and nutrients","To break down waste materials","Smooth Endoplasmic Reticulum","To provide structure and support","Prokaryotic and Eukaryotic","To control what enters and exits the cell"]
@@ -29,16 +49,17 @@ struct EndGameView: View {
                 Text("score: \(playersGradedAnswers.filter{$0 == true}.count)/\(playersGradedAnswers.count)")
                     .font(.title)
                     .fontWeight(.bold)
+                
                 HStack{
-                    Text("Question 1: \(playersGradedAnswers[0])")
+                    Text("\(question[currentLevel][currentQuestion]) \(playersGradedAnswers[0])")
                     if playersGradedAnswers[0] {
-                        Image(systemName: "check")
+                        Image(systemName: "checkmark.circle.fill")
+                            .foregroundStyle(.green)
                     }
                     else{
                         Image(systemName: "xmark")
                     }
                 }
-                
                 
             }
             
@@ -52,8 +73,10 @@ struct EndGameView: View {
     struct Preview: View {
         @State var currentLevel : Int = 0
         @State var playersGradedAnswers : [Bool] = [true,false]
+        @State var storedAnswers = ["cell","mitochondria"]
+        @State var currentQuestion = 0
         var body: some View {
-            EndGameView(currentLevel: $currentLevel, playersGradedAnswers: $playersGradedAnswers)
+            EndGameView(currentLevel: $currentLevel, currentQuestion: $currentQuestion, playersGradedAnswers: $playersGradedAnswers, storedAnswers: $storedAnswers)
         }
     }
     return Preview()

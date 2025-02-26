@@ -26,11 +26,13 @@ struct GradeAnswerView: View {
         ["Cell","Nucleus","Mitochondria","Cell membrane","Chloroplast","Cytoplasm","Ribosome","Golgi apparatus","Cell wall","To store water and nutrients","To break down waste materials","Smooth Endoplasmic Reticulum","To provide structure and support","Prokaryotic and Eukaryotic","To control what enters and exits the cell"]
     ]
     @Binding var playersGradedAnswers : [Bool]
+    @State var storedAnswers : [String] = []
     func gradeAnswer(){
         questionShowing = 0.0//hides question when player answers a questions
         answersOffSetY = 0 // moves questions to top of screen
         counterForResults = 100 //time until resultes dissapers 100=1sec
         counter = 100 //time until question/answers appears 100=1sec
+        storedAnswers.append(playerAnswer)
         
         if playerAnswer == correctAnswers[currentLevel][currentQuestion] {
             trueShowing = 1.0
@@ -46,7 +48,7 @@ struct GradeAnswerView: View {
         else {
             gameRunning = false
             questionShowing = 0.0
-            EndGameView(currentLevel: $currentLevel, playersGradedAnswers: $playersGradedAnswers)
+            EndGameView(currentLevel: $currentLevel, currentQuestion: $currentQuestion, playersGradedAnswers: $playersGradedAnswers, storedAnswers: $storedAnswers)
         }
     }
     var body: some View {
