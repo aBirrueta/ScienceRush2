@@ -8,7 +8,30 @@
 import SwiftUI
 
 struct GameView: View {
-    
+    @State var correctAnswers: [[String]] =
+    [
+        ["Cell","Nucleus","Mitochondria","Cell membrane","Chloroplast","Cytoplasm","Ribosome","Golgi apparatus","Cell wall","To store water and nutrients","To break down waste materials","Smooth Endoplasmic Reticulum","To provide structure and support","Prokaryotic and Eukaryotic","To control what enters and exits the cell"]
+    ]
+    @State var question: [[String]] =
+    [
+        ["What is the basic unit of life?",
+         "What part of the cell controls its activities?",
+         "Which structure provides energy to the cell?",
+         "What surrounds and protects animal cells?",
+         "Which organelle is responsible for photosynthesis in plant cells?",
+         "What is the jelly-like substance inside a cell called?",
+         "Which organelle is known as the 'protein factory' of the cell?",
+         "Which cell organelle packages and distributes proteins?",
+         "What do plant cells have that animal cells do not?",
+         "What is the function of the vacuole in plant cells?",
+         "What is the role of the lysosome in the cell?",
+         "Which part of the cell is responsible for making lipids?",
+         "What is the main purpose of the cytoskeleton in a cell?",
+         "What are the two main types of cells?",
+         "What is the function of the cell membrane?"]
+    ]
+    @State var storedAnswers : [String] = [""]
+
     @State private var answersOffSetY: Double = 0.0
     @Environment(\.dismiss) var dismiss
     @State var questionsAnswered = 0
@@ -39,8 +62,8 @@ struct GameView: View {
                 AnswerView(currentLevel: $currentLevel, currentQuestion: $currentQuestion, playerAnswer: $playerAnswer)
                     .opacity(questionShowing)
                     .offset(y: answersOffSetY-geometry.size.height)
-                GradeAnswerView(trueShowing: $trueShowing, falseShowing: $falseShowing, counterForResults: $counterForResults, questionShowing: $questionShowing, currentQuestion: $currentQuestion, currentLevel: $currentLevel, playerAnswer: $playerAnswer, answersOffSetY: $answersOffSetY, gameEndedShowing: $gameEndedShowing, gameRunning: $gameRunning, counter: $counter, playersGradedAnswers: $playersGradedAnswers)
-                EndGameView(currentLevel: $currentLevel, currentQuestion: $currentQuestion, playersGradedAnswers: $playersGradedAnswers)
+                GradeAnswerView(trueShowing: $trueShowing, falseShowing: $falseShowing, counterForResults: $counterForResults, questionShowing: $questionShowing, currentQuestion: $currentQuestion, currentLevel: $currentLevel, playerAnswer: $playerAnswer, answersOffSetY: $answersOffSetY, gameEndedShowing: $gameEndedShowing, gameRunning: $gameRunning, counter: $counter, playersGradedAnswers: $playersGradedAnswers, storedAnswers: $storedAnswers)
+                EndGameView(currentLevel: $currentLevel, currentQuestion: $currentQuestion, playersGradedAnswers: $playersGradedAnswers, storedAnswers: $storedAnswers, question: $question, correctAnswers: $correctAnswers)
                     .opacity(gameEndedShowing)
             }//Zstack
             
