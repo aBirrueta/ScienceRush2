@@ -30,7 +30,7 @@ struct GameView: View {
          "What are the two main types of cells?",
          "What is the function of the cell membrane?"]
     ]
-    @State var storedAnswers : [String] = [""]
+    @State var storedAnswers : [String] = ["","","","","","","","","","","","","","",""]
 
     @State private var answersOffSetY: Double = 0.0
     @Environment(\.dismiss) var dismiss
@@ -44,7 +44,7 @@ struct GameView: View {
     @State var trueShowing : Double = 0.0
     @State var falseShowing : Double = 0.0
     @State var playersAnswers: [String] = []
-    @State var playersGradedAnswers : [Bool] = []
+    @State var playersGradedAnswers : [Bool] = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
     @State var resultShowing = 0.0
     let timer = Timer.publish(every: 0.01, on: .main, in: .common).autoconnect()
     

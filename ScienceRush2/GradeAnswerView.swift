@@ -32,15 +32,16 @@ struct GradeAnswerView: View {
         answersOffSetY = 0 // moves questions to top of screen
         counterForResults = 100 //time until resultes dissapers 100=1sec
         counter = 100 //time until question/answers appears 100=1sec
-        storedAnswers.append(playerAnswer)
-        
+        storedAnswers[currentQuestion] = playerAnswer
+         
         if playerAnswer == correctAnswers[currentLevel][currentQuestion] {
             trueShowing = 1.0
-            playersGradedAnswers.append(true)
+            playersGradedAnswers[currentQuestion] = true
+
         }
         else {
             falseShowing = 1.0// shows result of as false
-            playersGradedAnswers.append(false)
+            playersGradedAnswers[currentQuestion] = false
         }
         if correctAnswers[currentLevel].count - 1 != currentQuestion {
             currentQuestion += 1

@@ -19,7 +19,7 @@ struct EndGameView: View {
     var body: some View {
         ZStack{
             RoundedRectangle(cornerRadius: 15)
-                .fill(.quinary)
+                .fill(.gray)
                 .frame(width: 350, height: 550)
             VStack{
                 Text("Level \(currentLevel+1) complete")
@@ -29,17 +29,36 @@ struct EndGameView: View {
                 Text("score: \(playersGradedAnswers.filter{$0 == true}.count)/\(playersGradedAnswers.count)")
                     .font(.title)
                     .fontWeight(.bold)
-                
-                HStack{
-                    Text("\(question[currentLevel][currentQuestion]) \(playersGradedAnswers[0])")
-                    if playersGradedAnswers[0] {
-                        Image(systemName: "checkmark.circle.fill")
-                            .foregroundStyle(.green)
+                ScrollView{
+                    ForEach(0..<14) { qNumber in
+                    //Q1
+                    Text("\(question[currentLevel][currentQuestion])")
+                    Text("you answered:")
+                    HStack{
+                        if playersGradedAnswers[qNumber] {
+                            Image(systemName: "checkmark.circle.fill")
+                                .foregroundStyle(.green)
+                            Text("\(storedAnswers[qNumber])")
+                        }
+                        else{
+                            VStack{
+                                HStack{
+                                    Image(systemName: "xmark.circle.fill")
+                                        .foregroundStyle(.red)
+                                    Text("\(storedAnswers[qNumber])")
+                                }
+                                Text("The correct answer is:")
+                                HStack{
+                                    Image(systemName: "checkmark.circle.fill")
+                                        .foregroundStyle(.green)
+                                    Text("\(correctAnswers[0][qNumber])")
+                                }
+                            }
+                        }
                     }
-                    else{
-                        Image(systemName: "xmark")
                     }
-                }
+                }//scroll view
+                .frame(width: 350, height: 400)
                 
             }
             
@@ -74,8 +93,8 @@ struct EndGameView: View {
             ["Cell","Nucleus","Mitochondria","Cell membrane","Chloroplast","Cytoplasm","Ribosome","Golgi apparatus","Cell wall","To store water and nutrients","To break down waste materials","Smooth Endoplasmic Reticulum","To provide structure and support","Prokaryotic and Eukaryotic","To control what enters and exits the cell"]
         ]
         @State var currentLevel : Int = 0
-        @State var playersGradedAnswers : [Bool] = [true,false]
-        @State var storedAnswers = ["cell","mitochondria"]
+        @State var playersGradedAnswers : [Bool] = [true, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
+        @State var storedAnswers = ["cell","mitochondria","","","","","","","","","","","","",""]
         @State var currentQuestion = 0
     
         var body: some View {
