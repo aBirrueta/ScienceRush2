@@ -19,7 +19,7 @@ struct EndGameView: View {
     var body: some View {
         ZStack{
             RoundedRectangle(cornerRadius: 15)
-                .fill(.gray)
+                .fill(.blue)
                 .frame(width: 350, height: 550)
             VStack{
                 Text("Level \(currentLevel+1) complete")
@@ -29,36 +29,38 @@ struct EndGameView: View {
                 Text("score: \(playersGradedAnswers.filter{$0 == true}.count)/\(playersGradedAnswers.count)")
                     .font(.title)
                     .fontWeight(.bold)
-                ScrollView{
-                    ForEach(0..<14) { qNumber in
-                    //Q1
-                    Text("\(question[currentLevel][currentQuestion])")
-                    Text("you answered:")
-                    HStack{
-                        if playersGradedAnswers[qNumber] {
-                            Image(systemName: "checkmark.circle.fill")
-                                .foregroundStyle(.green)
-                            Text("\(storedAnswers[qNumber])")
-                        }
-                        else{
-                            VStack{
-                                HStack{
-                                    Image(systemName: "xmark.circle.fill")
-                                        .foregroundStyle(.red)
-                                    Text("\(storedAnswers[qNumber])")
-                                }
-                                Text("The correct answer is:")
-                                HStack{
+                VStack {
+                    ScrollView{
+                        ForEach(0..<14) { qNumber in
+                            //Q1
+                            Text("\(question[currentLevel][currentQuestion])")
+                            Text("you answered:")
+                            HStack{
+                                if playersGradedAnswers[qNumber] {
                                     Image(systemName: "checkmark.circle.fill")
                                         .foregroundStyle(.green)
-                                    Text("\(correctAnswers[0][qNumber])")
+                                    Text("\(storedAnswers[qNumber])")
+                                }
+                                else{
+                                    VStack{
+                                        HStack{
+                                            Image(systemName: "xmark.circle.fill")
+                                                .foregroundStyle(.red)
+                                            Text("\(storedAnswers[qNumber])")
+                                        }
+                                        Text("The correct answer is:")
+                                        HStack{
+                                            Image(systemName: "checkmark.circle.fill")
+                                                .foregroundStyle(.green)
+                                            Text("\(correctAnswers[0][qNumber])")
+                                        }
+                                    }
                                 }
                             }
                         }
-                    }
-                    }
-                }//scroll view
-                .frame(width: 350, height: 400)
+                    }//scroll view
+                    .frame(width: 350, height: 400)
+                }
                 
             }
             
