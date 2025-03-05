@@ -34,6 +34,7 @@ struct EndGameView: View {
                         ForEach(0..<14) { qNumber in
                             //Q1
                             Text("\(question[currentLevel][currentQuestion])")
+                                .bold()
                             Text("you answered:")
                             HStack{
                                 if playersGradedAnswers[qNumber] {

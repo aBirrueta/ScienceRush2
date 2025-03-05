@@ -63,6 +63,7 @@ struct GameView: View {
                     .opacity(questionShowing)
                     .offset(y: answersOffSetY-geometry.size.height)
                 GradeAnswerView(trueShowing: $trueShowing, falseShowing: $falseShowing, counterForResults: $counterForResults, questionShowing: $questionShowing, currentQuestion: $currentQuestion, currentLevel: $currentLevel, playerAnswer: $playerAnswer, answersOffSetY: $answersOffSetY, gameEndedShowing: $gameEndedShowing, gameRunning: $gameRunning, counter: $counter, playersGradedAnswers: $playersGradedAnswers, storedAnswers: $storedAnswers)
+                PlayerView()
                 EndGameView(currentLevel: $currentLevel, currentQuestion: $currentQuestion, playersGradedAnswers: $playersGradedAnswers, storedAnswers: $storedAnswers, question: $question, correctAnswers: $correctAnswers)
                     .opacity(gameEndedShowing)
             }//Zstack
