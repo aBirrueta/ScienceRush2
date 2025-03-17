@@ -29,9 +29,9 @@ struct GradeAnswerView: View {
     @Binding var storedAnswers : [String]
     func gradeAnswer(){
         questionShowing = 0.0//hides question when player answers a questions
-        answersOffSetY = 0 // moves questions to top of screen
+        //answersOffSetY = 0 // moves questions to top of screen
         counterForResults = 100 //time until resultes dissapers 100=1sec
-        counter = 100 //time until question/answers appears 100=1sec
+        counter = 175 //time until question/answers appears 100=1sec
         storedAnswers[currentQuestion] = playerAnswer
          
         if playerAnswer == correctAnswers[currentLevel][currentQuestion] {
@@ -44,7 +44,6 @@ struct GradeAnswerView: View {
             playersGradedAnswers[currentQuestion] = false
         }
         if correctAnswers[currentLevel].count - 1 != currentQuestion {
-            currentQuestion += 1
         }
         else {
             gameRunning = false

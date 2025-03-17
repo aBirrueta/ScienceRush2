@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct GameView: View {
+    @State var xOffset: Double = Double((UIScreen.main.bounds.size.width-50)/8)
     @State var correctAnswers: [[String]] =
     [
         ["Cell","Nucleus","Mitochondria","Cell membrane","Chloroplast","Cytoplasm","Ribosome","Golgi apparatus","Cell wall","To store water and nutrients","To break down waste materials","Smooth Endoplasmic Reticulum","To provide structure and support","Prokaryotic and Eukaryotic","To control what enters and exits the cell"]
@@ -59,11 +60,10 @@ struct GameView: View {
                 BackgroundView(skyOffSetY: $skyOffSetY)
                 QuestionView(currentLevel: $currentLevel, currentQuestion: $currentQuestion)
                     .opacity(questionShowing)
-                AnswerView(currentLevel: $currentLevel, currentQuestion: $currentQuestion, playerAnswer: $playerAnswer)
-                    .opacity(questionShowing)
+                AnswerView(currentLevel: $currentLevel, currentQuestion: $currentQuestion, playerAnswer: $playerAnswer,answersOffSetY: $answersOffSetY,xOffset: $xOffset)
                     .offset(y: answersOffSetY-geometry.size.height)
                 GradeAnswerView(trueShowing: $trueShowing, falseShowing: $falseShowing, counterForResults: $counterForResults, questionShowing: $questionShowing, currentQuestion: $currentQuestion, currentLevel: $currentLevel, playerAnswer: $playerAnswer, answersOffSetY: $answersOffSetY, gameEndedShowing: $gameEndedShowing, gameRunning: $gameRunning, counter: $counter, playersGradedAnswers: $playersGradedAnswers, storedAnswers: $storedAnswers)
-                PlayerView()
+                PlayerView(xOffset: $xOffset)
                 EndGameView(currentLevel: $currentLevel, currentQuestion: $currentQuestion, playersGradedAnswers: $playersGradedAnswers, storedAnswers: $storedAnswers, question: $question, correctAnswers: $correctAnswers)
                     .opacity(gameEndedShowing)
             }//Zstack
@@ -98,8 +98,12 @@ struct GameView: View {
                     counterForResults -= 1
                 }
                 //scrolling for answers
-                answersOffSetY += 2
-                if answersOffSetY >= 1500 {
+                answersOffSetY += 1.5
+                if answersOffSetY >= 1350 {
+                    if correctAnswers[currentLevel].count - 1 != currentQuestion {
+                        currentQuestion += 1
+                    }
+
                     answersOffSetY = 0
                 }
                 if gameRunning == false && counterForResults == 0 {

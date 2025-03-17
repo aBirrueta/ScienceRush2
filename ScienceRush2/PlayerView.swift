@@ -8,28 +8,31 @@
 import SwiftUI
 
 struct PlayerView: View {
-    @State private var offset: Double = 100.5
-    let screenWidth: Double = Double(UIScreen.main.bounds.size.width)
-
+    let screenWidth: Double = Double(UIScreen.main.bounds.size.width-50)
+    @Binding var xOffset: Double 
     var body: some View {
-        //offset = screenWidth/4.0
-        Image("rocket")
-            .resizable()
-               .frame(width: 100, height: 100)
-               .aspectRatio(contentMode: .fit)
-               .offset(x:offset)
+            Image("rocket")
+                .resizable()
+                .frame(width: 100, height: 100)
+                .aspectRatio(contentMode: .fit)
+                .offset(x:xOffset, y:300)
+                .onChange(of: xOffset) {print(xOffset)}
         HStack{
             Button("left") {
-                offset -= screenWidth/4.0
+                if xOffset > 0-((screenWidth-100)/2) {
+                    xOffset -= screenWidth/4.0
+                }
             }
             Button("right") {
-                offset += screenWidth/4.0
+                if xOffset < (screenWidth-100)/2 {
+                    xOffset += screenWidth/4.0
+                }
             }
         }
     }
     
 }
 
-#Preview {
-    PlayerView()
-}
+//#Preview {
+  //  PlayerView()
+//}
