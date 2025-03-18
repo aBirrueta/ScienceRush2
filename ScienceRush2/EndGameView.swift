@@ -26,34 +26,37 @@ struct EndGameView: View {
                     .font(.title)
                     .fontWeight(.black)
                     
-                Text("score: \(playersGradedAnswers.filter{$0 == true}.count)/\(playersGradedAnswers.count)")
+                Text("score: \(playersGradedAnswers.filter{$0 == true}.count)/\(currentQuestion+1)")
                     .font(.title)
                     .fontWeight(.bold)
                 VStack {
                     ScrollView{
-                        ForEach(0..<14) { qNumber in
-                            //Q1
-                            Text("\(question[currentLevel][currentQuestion])")
-                                .bold()
-                            Text("you answered:")
-                            HStack{
-                                if playersGradedAnswers[qNumber] {
-                                    Image(systemName: "checkmark.circle.fill")
-                                        .foregroundStyle(.green)
-                                    Text("\(storedAnswers[qNumber])")
-                                }
-                                else{
-                                    VStack{
-                                        HStack{
-                                            Image(systemName: "xmark.circle.fill")
-                                                .foregroundStyle(.red)
-                                            Text("\(storedAnswers[qNumber])")
-                                        }
-                                        Text("The correct answer is:")
-                                        HStack{
-                                            Image(systemName: "checkmark.circle.fill")
-                                                .foregroundStyle(.green)
-                                            Text("\(correctAnswers[0][qNumber])")
+                        ForEach(0..<correctAnswers[currentLevel].count) { qNumber in
+                            Text("---------------------------------------")
+                            Spacer()
+                            VStack{
+                                Text("\(question[currentLevel][qNumber])")
+                                    .bold()
+                                Text("you answered:")
+                                HStack{
+                                    if playersGradedAnswers[qNumber] {
+                                        Image(systemName: "checkmark.circle.fill")
+                                            .foregroundStyle(.green)
+                                        Text("\(storedAnswers[qNumber])")
+                                    }
+                                    else{
+                                        VStack{
+                                            HStack{
+                                                Image(systemName: "xmark.circle.fill")
+                                                    .foregroundStyle(.red)
+                                                Text("\(storedAnswers[qNumber])")
+                                            }
+                                            Text("The correct answer is:")
+                                            HStack{
+                                                Image(systemName: "checkmark.circle.fill")
+                                                    .foregroundStyle(.green)
+                                                Text("\(correctAnswers[0][qNumber])")
+                                            }
                                         }
                                     }
                                 }

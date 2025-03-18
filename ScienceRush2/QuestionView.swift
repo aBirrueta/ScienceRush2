@@ -32,9 +32,9 @@ struct QuestionView: View {
     
     var body: some View {
         Text(question[currentLevel][currentQuestion])
-            .position(x: 200, y: 100)
+            .position(x: 200, y: 130)
             .fontWeight(.black)
-        
+            .font(.system(size: 30))
         
     }
 }

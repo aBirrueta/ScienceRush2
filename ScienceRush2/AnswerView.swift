@@ -56,6 +56,7 @@ struct AnswerView: View {
                             .fill(.red.opacity(0.5))
                             .frame(width: (UIScreen.main.bounds.size.width-50)/4, height: (UIScreen.main.bounds.size.width-50)/4)
                         Text(answers[currentLevel][currentQuestion][0])
+                        .fontWeight(.bold)
                     }
                     .frame(width: (UIScreen.main.bounds.size.width-50)/4)
                     .onChange(of: answersOffSetY){checkColision()}
@@ -65,6 +66,8 @@ struct AnswerView: View {
                         .fill(.yellow.opacity(0.5))
                             .frame(width: (UIScreen.main.bounds.size.width-50)/4, height: (UIScreen.main.bounds.size.width-50)/4)
                         Text(answers[currentLevel][currentQuestion][1])
+                        .fontWeight(.bold)
+
                     }
                     .frame(width: (UIScreen.main.bounds.size.width-50)/4)
                 //Q3
@@ -73,6 +76,8 @@ struct AnswerView: View {
                         .fill(.blue.opacity(0.5))
                             .frame(width: (UIScreen.main.bounds.size.width-50)/4, height: (UIScreen.main.bounds.size.width-50)/4)
                         Text(answers[currentLevel][currentQuestion][2])
+                        .fontWeight(.bold)
+
                     }
                     .frame(width: (UIScreen.main.bounds.size.width-50)/4)
                 //Q4
@@ -81,6 +86,8 @@ struct AnswerView: View {
                         .fill(.green.opacity(0.5))
                             .frame(width: (UIScreen.main.bounds.size.width-50)/4, height: (UIScreen.main.bounds.size.width-50)/4)
                         Text(answers[currentLevel][currentQuestion][3])
+                        .fontWeight(.bold)
+
                     }
                     .frame(width: (UIScreen.main.bounds.size.width-50)/4)
                 /*

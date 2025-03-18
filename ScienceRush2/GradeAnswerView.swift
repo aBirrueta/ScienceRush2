@@ -22,11 +22,7 @@ struct GradeAnswerView: View {
     @Binding var gameEndedShowing: Double
     @Binding var gameRunning: Bool
     @Binding var counter: Int
-    
-    let correctAnswers =
-    [
-        ["Cell","Nucleus","Mitochondria","Cell membrane","Chloroplast","Cytoplasm","Ribosome","Golgi apparatus","Cell wall","To store water and nutrients","To break down waste materials","Smooth Endoplasmic Reticulum","To provide structure and support","Prokaryotic and Eukaryotic","To control what enters and exits the cell"]
-    ]
+    @Binding var correctAnswers: [[String]]
     @Binding var playersGradedAnswers : [Bool]
     @Binding var storedAnswers : [String]
     func gradeAnswer(){
@@ -57,12 +53,12 @@ struct GradeAnswerView: View {
     var body: some View {
         Image(systemName: "xmark.circle.fill")
             .foregroundStyle(.red)
-            .scaleEffect(6)
+            .scaleEffect(9)
             .opacity(falseShowing)
            
         Image(systemName: "checkmark.circle.fill")
             .foregroundStyle(.green)
-            .scaleEffect(6)
+            .scaleEffect(9)
             .opacity(trueShowing)
             .onChange(of: playerAnswer) {
                gradeAnswer()
