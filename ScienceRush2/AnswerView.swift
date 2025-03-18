@@ -49,7 +49,41 @@ struct AnswerView: View {
     }
     var body: some View {
         ZStack{
-            HStack{
+            HStack(spacing: 0){
+                //Q1
+                ZStack{
+                    RoundedRectangle(cornerRadius: 25)
+                            .fill(.red.opacity(0.5))
+                            .frame(width: (UIScreen.main.bounds.size.width-50)/4, height: (UIScreen.main.bounds.size.width-50)/4)
+                        Text(answers[currentLevel][currentQuestion][0])
+                    }
+                    .frame(width: (UIScreen.main.bounds.size.width-50)/4)
+                    .onChange(of: answersOffSetY){checkColision()}
+                //Q2
+                ZStack{
+                    RoundedRectangle(cornerRadius: 25)
+                        .fill(.yellow.opacity(0.5))
+                            .frame(width: (UIScreen.main.bounds.size.width-50)/4, height: (UIScreen.main.bounds.size.width-50)/4)
+                        Text(answers[currentLevel][currentQuestion][1])
+                    }
+                    .frame(width: (UIScreen.main.bounds.size.width-50)/4)
+                //Q3
+                ZStack{
+                    RoundedRectangle(cornerRadius: 25)
+                        .fill(.blue.opacity(0.5))
+                            .frame(width: (UIScreen.main.bounds.size.width-50)/4, height: (UIScreen.main.bounds.size.width-50)/4)
+                        Text(answers[currentLevel][currentQuestion][2])
+                    }
+                    .frame(width: (UIScreen.main.bounds.size.width-50)/4)
+                //Q4
+                ZStack{
+                    RoundedRectangle(cornerRadius: 25)
+                        .fill(.green.opacity(0.5))
+                            .frame(width: (UIScreen.main.bounds.size.width-50)/4, height: (UIScreen.main.bounds.size.width-50)/4)
+                        Text(answers[currentLevel][currentQuestion][3])
+                    }
+                    .frame(width: (UIScreen.main.bounds.size.width-50)/4)
+                /*
                 Button(answers[currentLevel][currentQuestion][0]) {
                     playerAnswer = answers[currentLevel][currentQuestion][0]
                 }
@@ -77,7 +111,7 @@ struct AnswerView: View {
                 .buttonBorderShape(.capsule)
                 .buttonStyle(.borderedProminent)
                 .onChange(of: answersOffSetY){checkColision()}
-                
+                */
                 
             }//hstack
         }

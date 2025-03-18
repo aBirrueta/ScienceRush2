@@ -19,7 +19,7 @@ struct EndGameView: View {
     var body: some View {
         ZStack{
             RoundedRectangle(cornerRadius: 15)
-                .fill(.blue)
+                .fill(.gray)
                 .frame(width: 350, height: 550)
             VStack{
                 Text("Level \(currentLevel+1) complete")

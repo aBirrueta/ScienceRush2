@@ -55,20 +55,16 @@ struct GradeAnswerView: View {
         }
     }
     var body: some View {
-       Text("INCORRECT")
-           .foregroundColor(Color.red)
-           .bold()
-           .frame(width: 200.0, height: 200.0)
-           .background(.black)
-           .opacity(falseShowing)
+        Image(systemName: "xmark.circle.fill")
+            .foregroundStyle(.red)
+            .scaleEffect(6)
+            .opacity(falseShowing)
            
-       Text("CORRECT")
-           .foregroundColor(Color.green)
-           .bold()
-           .frame(width: 200.0, height: 200.0)
-           .background(.black)
-           .opacity(trueShowing)
-           .onChange(of: playerAnswer) {
+        Image(systemName: "checkmark.circle.fill")
+            .foregroundStyle(.green)
+            .scaleEffect(6)
+            .opacity(trueShowing)
+            .onChange(of: playerAnswer) {
                gradeAnswer()
            }
     }
