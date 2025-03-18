@@ -14,6 +14,7 @@ struct GradeAnswerView: View {
     @Binding var falseShowing: Double
     @Binding var counterForResults: Int
     @Binding var questionShowing: Double
+    @Binding var answersShowing: Double
     @Binding var currentQuestion: Int
     @Binding var currentLevel: Int
     @Binding var playerAnswer: String
@@ -21,6 +22,7 @@ struct GradeAnswerView: View {
     @Binding var gameEndedShowing: Double
     @Binding var gameRunning: Bool
     @Binding var counter: Int
+    
     let correctAnswers =
     [
         ["Cell","Nucleus","Mitochondria","Cell membrane","Chloroplast","Cytoplasm","Ribosome","Golgi apparatus","Cell wall","To store water and nutrients","To break down waste materials","Smooth Endoplasmic Reticulum","To provide structure and support","Prokaryotic and Eukaryotic","To control what enters and exits the cell"]
@@ -48,6 +50,7 @@ struct GradeAnswerView: View {
         else {
             gameRunning = false
             questionShowing = 0.0
+            answersShowing = 0.0
             //EndGameView(currentLevel: $currentLevel, currentQuestion: $currentQuestion, playersGradedAnswers: $playersGradedAnswers, storedAnswers: $storedAnswers)
         }
     }

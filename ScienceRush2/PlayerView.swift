@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct PlayerView: View {
+
     let screenWidth: Double = Double(UIScreen.main.bounds.size.width-50)
     @Binding var xOffset: Double 
     var body: some View {
@@ -17,17 +18,50 @@ struct PlayerView: View {
                 .aspectRatio(contentMode: .fit)
                 .offset(x:xOffset, y:300)
                 .onChange(of: xOffset) {print(xOffset)}
-        HStack{
-            Button("left") {
-                if xOffset > 0-((screenWidth-100)/2) {
-                    xOffset -= screenWidth/4.0
+        HStack(spacing: 0) {
+            Rectangle()//left button
+                .fill(.clear)
+                .frame(width:UIScreen.main.bounds.size.width/2, height: UIScreen.main.bounds.height)
+                .contentShape(Rectangle()) // makes area tappable even tho its clear
+                .onTapGesture {
+                    //left button
+                        if xOffset > 0-((screenWidth-100)/2) {
+                        xOffset -= screenWidth/4.0
+                        }
                 }
+            Rectangle()//right button
+                .fill(.clear)
+                .frame(width:UIScreen.main.bounds.size.width/2, height: UIScreen.main.bounds.height)
+                .contentShape(Rectangle()) // makes area tappable even tho its clear
+                .onTapGesture {
+                    //right button
+                        if xOffset < (screenWidth-100)/2 {
+                            xOffset += screenWidth/4.0
+                        }
+                }//Hstack
+            
+            /*
+            Button(action: {//left button
+                if xOffset > 0-((screenWidth-100)/2) {
+                xOffset -= screenWidth/4.0
+                }
+            }){ 
+                Spacer()
             }
-            Button("right") {
+            .frame(width:UIScreen.main.bounds.size.width/2, height: UIScreen.main.bounds.height)
+            .background(Color(.red))
+            .opacity(0.1)
+            .contentShape(Rectangle())
+            Button("Right") {//right button
                 if xOffset < (screenWidth-100)/2 {
                     xOffset += screenWidth/4.0
                 }
             }
+            .frame(width:UIScreen.main.bounds.size.width/2, height: UIScreen.main.bounds.height)
+            .background(Color(.black))
+            .opacity(0.1)
+            .contentShape(Rectangle())
+             */
         }
     }
     

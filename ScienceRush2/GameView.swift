@@ -39,6 +39,7 @@ struct GameView: View {
     @State var currentLevel = 0 //used in Answer View, Question View, EndGameView
     @State var currentQuestion = 0 //used in Answer View, Question View
     @State var questionShowing = 1.0
+    @State var answersShowing = 1.0
     @State var gameRunning = true// true while playing game,false when not
     @State private var skyOffSetY: Double = 0.0
     @State var playerAnswer = ""
@@ -62,7 +63,8 @@ struct GameView: View {
                     .opacity(questionShowing)
                 AnswerView(currentLevel: $currentLevel, currentQuestion: $currentQuestion, playerAnswer: $playerAnswer,answersOffSetY: $answersOffSetY,xOffset: $xOffset)
                     .offset(y: answersOffSetY-geometry.size.height)
-                GradeAnswerView(trueShowing: $trueShowing, falseShowing: $falseShowing, counterForResults: $counterForResults, questionShowing: $questionShowing, currentQuestion: $currentQuestion, currentLevel: $currentLevel, playerAnswer: $playerAnswer, answersOffSetY: $answersOffSetY, gameEndedShowing: $gameEndedShowing, gameRunning: $gameRunning, counter: $counter, playersGradedAnswers: $playersGradedAnswers, storedAnswers: $storedAnswers)
+                    .opacity(1)
+                GradeAnswerView(trueShowing: $trueShowing, falseShowing: $falseShowing, counterForResults: $counterForResults, questionShowing: $questionShowing, answersShowing: $answersShowing, currentQuestion: $currentQuestion, currentLevel: $currentLevel, playerAnswer: $playerAnswer, answersOffSetY: $answersOffSetY, gameEndedShowing: $gameEndedShowing, gameRunning: $gameRunning, counter: $counter, playersGradedAnswers: $playersGradedAnswers, storedAnswers: $storedAnswers)
                 PlayerView(xOffset: $xOffset)
                 EndGameView(currentLevel: $currentLevel, currentQuestion: $currentQuestion, playersGradedAnswers: $playersGradedAnswers, storedAnswers: $storedAnswers, question: $question, correctAnswers: $correctAnswers)
                     .opacity(gameEndedShowing)
